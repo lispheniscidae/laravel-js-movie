@@ -1,0 +1,101 @@
+    body{
+        background-color: #9dfdc7;
+    }
+
+    nav {
+        background-color: #152744;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 900;
+        
+    }
+
+    .container h2{
+        margin-top: 5px;
+        text-align: center;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 800;
+        font-size: 3vw;
+        text-transform: uppercase;
+    }
+
+
+    .table{
+        border: 1px solid #9dfdc7;
+    }
+
+    .table th{
+        background-color: #152744;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 800;
+        color: #9dfdc7;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .table tr{
+        background-color: #367591;
+        font-family: 'Roboto Mono', serif;
+        font-weight: 800;
+        color: #9dfdc7;
+    }
+
+    .table td{
+        color: #9dfdc7;
+    }
+
+    .btn{
+        background-color: #152744;
+        color: #9dfdc7;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 800;
+        margin: 10px 10px 10px 10px;
+    }
+
+    .btn i{
+        color:#9dfdc7;
+    }
+
+    .modal-header{
+        background-color: #152744;
+        color: #9dfdc7;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 800;
+        border: 1px solid #152744;
+    }
+
+
+    .modal-body{
+        background-color: #152744;
+        color:#9dfdc7;
+        font-family: 'Roboto Mono', serif;
+        font-weight: 800;
+    }
+
+    .modal-footer{
+        background-color: #152744;
+        
+        border: 1px solid #152744;
+    }
+
+    .form-group input, textarea, label{
+        font-family: 'Roboto Mono', serif;
+        font-weight: 800;
+    }
+
+    .modal-body .btn{
+        border: 3px solid #9dfdc7;
+        margin-top: 10px;
+        background-color: #367591;
+        color: #9dfdc7;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 800;
+    }
+
+    .modal-body .form-group{
+        margin: 15px;
+    }
+
+    .btn{
+        border: 2px solid #9dfdc7;
+    }
+
