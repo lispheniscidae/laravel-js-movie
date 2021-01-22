@@ -1,6 +1,10 @@
 @extends('layouts.base')
 @section('body')
 <div class="container" id="content">
+        
+            <div class="sortableBody" id="sortable">
+                            
+            </div>
 <div id="resizable">
     <h2 id="title" ></h2>   
         
@@ -12,6 +16,7 @@
 
         </table>
     </div>
+
 </div>
 </div>
 

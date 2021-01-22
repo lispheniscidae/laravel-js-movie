@@ -17,14 +17,15 @@ __webpack_require__.r(__webpack_exports__);
 var actor = {
   show: function show(response) {
     var title = "Actors";
-    var tableContent = "\n                <thead>\n                <tr>\n                <th>ID</th>\n                <th>fname</th>\n                <th>lname</th>\n                <th>note</th>\n                <th>Edit</th>\n                <th>Delete</th>\n                </tr>\n                <thead>\n                <tbody id=\"actorBody\">\n                <tr>\n                </tr>\n                    \n                </tbody>\n                ";
+    var tableContent = "\n                <thead>\n                <tr>\n                <th>ID</th>\n                <th>fname</th>\n                <th>lname</th>\n                <th>note</th>\n                <th>Edit</th>\n                <th>Delete</th>\n                </tr>\n                <thead>\n                <tbody id=\"actorBody\">\n                </tbody>\n                ";
     var addButton = "<button type=\"button\" class=\"btn \" data-bs-toggle=\"modal\" data-bs-target=\"#addActor\"><i class=\"fas fa-plus\"></i></button>";
     $('#tableContent').html(tableContent);
     $('#addButton').html(addButton);
     $('#title').html(title);
     response.forEach(function (element) {
-      $('#actorBody').append("\n            <tr class=\"rowdata\">\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.fname, "</td>\n            <td>").concat(element.lname, "</td>\n            <td>").concat(element.note, "</td>\n            \n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editActor\" data-id=\"").concat(element.id, "\" id=\"editActorIcon\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt actorDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
+      $('#actorBody').append("\n            <tr id=\"sortable\">\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.fname, "</td>\n            <td>").concat(element.lname, "</td>\n            <td>").concat(element.note, "</td>\n            \n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editActor\" data-id=\"").concat(element.id, "\" id=\"editActorIcon\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt actorDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            \n        \n           \n            "));
     });
+    $("table tbody").sortable();
     $('#content').append(_actorModals__WEBPACK_IMPORTED_MODULE_0__.default); // CREATE-ACTOR
 
     $('#actorCreate').validate({
@@ -225,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var genre = {
   show: function show(response) {
-    //SHOW-GENRE-TABLE
+    //   SHOW-GENRE-TABLE
     var title = "Genres";
     var tableContent = "\n            <thead class=\"\">\n                <tr>\n                <th>ID</th>\n                <th>genre</th>\n                <th>Edit</th>\n                <th>Delete</th>\n                </tr>\n            </thead>\n            <tbody id=\"genreBody\">\n            </tbody>\n            ";
     var addButton = "<button type=\"button\" class=\"btn  \"data-bs-toggle=\"modal\" data-bs-target=\"#addGenre\"><i class=\"fas fa-plus\"></i></button>";
@@ -235,6 +236,7 @@ var genre = {
     response.forEach(function (element) {
       $('#genreBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.name, "</td>\n            <td align='center'><i class=\"fas fa-edit\"data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editGenre\" ></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt genreDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
     });
+    $("table tbody").sortable();
     $('#content').append(_genreModals__WEBPACK_IMPORTED_MODULE_0__.default); // CREATE-GENRE
 
     $('#genreCreate').validate({
@@ -476,6 +478,7 @@ var movie = {
     response.forEach(function (element) {
       $('#movieBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.title, "</td>\n            <td>").concat(element.description, "</td>\n            <td>").concat(element.release, "</td>\n            <td>").concat(element.genre_id, "</td>\n            <td>").concat(element.producer_id, "</td>\n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editMovie\" data-id=\"").concat(element.id, "\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt movieDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
     });
+    $("table tbody").sortable();
     $('#content').append(_movieModals__WEBPACK_IMPORTED_MODULE_0__.default);
     $('#addMovie').on('shown.bs.modal', function (e) {
       // ITERATE-GENRE-MODAL
@@ -517,15 +520,41 @@ var movie = {
       });
     }); //CREATE-MOVIE
 
-    $('#movieCreate').validate({
+    $('#movieCreateForm').validate({
       rules: {
         title: {
           required: true,
           minlength: 5
+        },
+        description: {
+          required: true,
+          minlength: 10
+        },
+        release: {
+          required: true,
+          date: true
+        },
+        genre_id: {
+          required: true
+        },
+        producer_id: {
+          required: true
         }
       },
       messages: {
         title: {
+          required: 'required'
+        },
+        description: {
+          required: 'required'
+        },
+        release: {
+          required: 'required'
+        },
+        genre_id: {
+          required: 'required'
+        },
+        producer: {
           required: 'required'
         }
       },
@@ -533,12 +562,11 @@ var movie = {
         error.insertAfter(element);
       },
       submitHandler: function submitHandler(form, e) {
-        // $('#saveMovie').on('click', function(e){
         e.preventDefault();
         var data = $("#movieCreate").serialize();
         console.log(data);
         $.ajax({
-          type: "POST",
+          type: "post",
           url: "/api/Movie",
           data: data,
           headers: {
@@ -548,7 +576,7 @@ var movie = {
           success: function success(data) {
             console.log(data);
             $("#addMovie").modal("hide");
-            $('#movieBody').append("\n        \n                    <tr>\n                    <td>".concat(data.id, "</td>\n                    <td>").concat(data.title, "</td>\n                    <td>").concat(data.description, "</td>\n                    <td>").concat(data.release, "</td>\n                    <td>").concat(data.genre_id, "</td>\n                    <td>").concat(data.producer_id, "</td>\n                    <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(data.id, "\" data-bs-target=\"#editMovie\"></i></td>\n                    <td align='center'><i class=\"fas fa-trash-alt movieDelete\" data-id=\"").concat(data.id, "\"></i></td>\n            \n                    </tr>\n                    "));
+            $('#movieBody').append("\n    \n                <tr>\n                <td>".concat(data.id, "</td>\n                <td>").concat(data.title, "</td>\n                <td>").concat(data.description, "</td>\n                <td>").concat(data.release, "</td>\n                <td>").concat(data.genre_id, "</td>\n                <td>").concat(data.producer_id, "</td>\n                <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(data.id, "\" data-bs-target=\"#editMovie\"></i></td>\n                <td align='center'><i class=\"fas fa-trash-alt movieDelete\" data-id=\"").concat(data.id, "\"></i></td>\n        \n                </tr>\n                "));
           },
           error: function error(_error3) {
             console.log('error');
@@ -728,7 +756,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ movieModal
 /* harmony export */ });
 function movieModal() {
-  return "<!-- ---------------------------------------MOVIECREATE-------------------------------------- -->\n    <div class=\"modal fade\" id=\"addMovie\" tabindex=\"-1\" aria-labelledby=\"addMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Create Movie</h2>\n            </div>\n\n            <div class=\"modal-body\">\n            <form id = \"movieCreate\">\n                <div class=\"form-group\">\n                    <label for=\"Title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\" value=\"\">\n                    \n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input type=\"date\" id=\"release\" class=\"form-control\" name=\"release\" value=\"\" >\n                    </div>\n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control\" id=\"genre_id\" name=\"genre_id\"> \n                    \n                    </select>\n                    \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control\" id=\"producer_id\" name=\"producer_id\"> \n                    \n                    </select>\n                    \n                </div>\n                \n\n                \n            </div>\n\n            <div class=\"modal-footer\">\n                <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveMovie\">Save</button>\n                <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n</form>\n        </div>\n    </div>\n</div>\n\n\n<!-- ---------------------------------------------------MOVIEEDIT------------------------------------------------- -->\n\n<div class=\"modal fade\" id=\"editMovie\" tabindex=\"-1\" aria-labelledby=\"editMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n        <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Edit Movie</h2>\n            </div>\n\n            <div class=\"modal-body\">\n            <form id = \"movieEdit\">\n                <div class=\"form-group\">\n                    <label for=\"Title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control movieTitle\" id=\"title\" name=\"title\" value=\"\">\n                    \n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control movieDescription\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input placeholder=\"Select date\" type=\"date\" id=\"release\" class=\"form-control movieRelease\" name=\"release\" value=\"\" data-date-format=\"yyyy-mm-dd\">\n                    \n                    </div>\n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control movieGenre_id\" id=\"genre_id\" name=\"genre_id\"> \n                    \n                    </select>\n                    \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control movieProducer_id\" id=\"producer_id\" name=\"producer_id\"> \n                    \n                    </select>\n                    \n                </div>\n                \n\n            <div class=\"modal-footer\">\n                <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateMovie\" >Save</button>\n                <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n            </form>\n            </div>\n        </div>\n    </div>\n</div>";
+  return "<!-- ---------------------------------------MOVIECREATE-------------------------------------- -->\n    <div class=\"modal fade\" id=\"addMovie\" tabindex=\"-1\" aria-labelledby=\"addMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Create Movie</h2>\n            </div>\n\n            <div class=\"modal-body\">\n            <form id = \"movieCreateForm\">\n                <div class=\"form-group\">\n                    <label for=\"title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\" value=\"\">\n                    \n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input type=\"date\" id=\"release\" class=\"form-control\" name=\"release\" value=\"\" >\n                    </div>\n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control\" id=\"genre_id\" name=\"genre_id\"> \n                    \n                    </select>\n                    \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control\" id=\"producer_id\" name=\"producer_id\"> \n                    \n                    </select>\n                    \n                </div>\n                \n\n                \n            </div>\n\n            <div class=\"modal-footer\">\n            <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveMovie\" >Save</button>\n            <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n        </div>\n</form>\n        </div>\n    </div>\n</div>\n\n\n<!-- ---------------------------------------------------MOVIEEDIT------------------------------------------------- -->\n\n<div class=\"modal fade\" id=\"editMovie\" tabindex=\"-1\" aria-labelledby=\"editMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n        <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Edit Movie</h2>\n            </div>\n\n            <div class=\"modal-body\">\n            <form id = \"movieEdit\">\n                <div class=\"form-group\">\n                    <label for=\"Title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control movieTitle\" id=\"title\" name=\"title\" value=\"\">\n                    \n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control movieDescription\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input placeholder=\"Select date\" type=\"date\" id=\"release\" class=\"form-control movieRelease\" name=\"release\" value=\"\" data-date-format=\"yyyy-mm-dd\">\n                    \n                    </div>\n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control movieGenre_id\" id=\"genre_id\" name=\"genre_id\"> \n                    \n                    </select>\n                    \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control movieProducer_id\" id=\"producer_id\" name=\"producer_id\"> \n                    \n                    </select>\n                    \n                </div>\n                \n\n            <div class=\"modal-footer\">\n                <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateMovie\" >Save</button>\n                <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n            </form>\n            </div>\n        </div>\n    </div>\n</div>";
 }
 
 /***/ }),
@@ -755,8 +783,9 @@ var producer = {
     $('#addButton').html(addButton);
     $('#title').html(title);
     response.forEach(function (element) {
-      $('#producerBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.name, "</td>\n            <td>").concat(element.email, "</td>\n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editProducer\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt\"></i></td>\n    \n            </tr>\n            "));
+      $('#producerBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.name, "</td>\n            <td>").concat(element.email, "</td>\n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editProducer\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt producerDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
     });
+    $("table tbody").sortable();
     $('#content').append(_producerModals__WEBPACK_IMPORTED_MODULE_0__.default); //  CREATE-PRODUCER
 
     $('#producerCreate').validate({
@@ -802,7 +831,7 @@ var producer = {
               input.val('');
             });
             $('#addProducer').modal('hide');
-            $('#producerBody').append("\n                        <tr>\n                            <td>".concat(data.id, "</td>\n                            <td>").concat(data.name, "</td>\n                            <td>").concat(data.email, "</td>\n                            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(data.id, "\" data-bs-target=\"#editProducer\"></i></td>\n                        d<td align='center'><i class=\"fas fa-trash-alt\"></i></td>\n                        </tr>\n                    "));
+            $('#producerBody').append("\n                        <tr>\n                            <td>".concat(data.id, "</td>\n                            <td>").concat(data.name, "</td>\n                            <td>").concat(data.email, "</td>\n                            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(data.id, "\" data-bs-target=\"#editProducer\"></i></td>\n                            <td align='center'><i class=\"fas fa-trash-alt producerDelete\" data-id=\"").concat(data.id, "\"></i></td>\n                        </tr>\n                    "));
           },
           error: function error(_error) {
             console.log('error');
@@ -882,6 +911,30 @@ var producer = {
           }
         });
       }
+    }); //Delete
+
+    $(".producerDelete").on("click", function (e) {
+      var id = $(e.currentTarget).attr('data-id');
+      var $tr = $(this).closest('tr');
+      console.log(id);
+
+      if (confirm("Are you sure you want to delete Producer Number ".concat(id, "?"))) {
+        $.ajax({
+          type: "DELETE",
+          url: "/api/Producer/" + id,
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          dataType: "json",
+          success: function success(data) {
+            // console.log(data);
+            $tr.remove();
+          },
+          error: function error(data) {
+            console.log('Error:', data);
+          }
+        });
+      }
     });
   }
 };
@@ -928,6 +981,7 @@ var role = {
     response.forEach(function (element) {
       $('#roleBody').append("\n                        <tr>\n                        <td>".concat(element.id, "</td>\n                        <td>").concat(element.name, "</td>\n                        <td>").concat(element.actor_id, "</td>\n                        <td>").concat(element.movie_id, "</td>\n                        <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editRole\"></i></td>\n                        <td align='center'><i class=\"fas fa-trash-alt roleDelete\" data-id=\"").concat(element.id, "\"></i></td>\n                \n                        </tr>\n                        "));
     });
+    $("table tbody").sortable();
     $("#content").append(_roleModals__WEBPACK_IMPORTED_MODULE_0__.default);
     $('#addRole').on('shown.bs.modal', function (e) {
       //ITERATE-MOVIE-MODAL

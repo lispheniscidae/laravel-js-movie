@@ -40,6 +40,7 @@ const movie = {
             </tr>
             `)
         });
+        $( "table tbody" ).sortable();
 
     $('#content').append(movieModal);
 
@@ -93,54 +94,61 @@ const movie = {
 
 
      //CREATE-MOVIE
-    $('#movieCreate').validate({
+    $('#movieCreateForm').validate({
         rules: {
-            title: { required:true, minlength:5 },
-        },
-            messages: {
-            title: { required:'required'},
-        },
-            errorPlacement: function(error, element){
-                error.insertAfter(element)
-        },
-        submitHandler: function(form,e) {
-    // $('#saveMovie').on('click', function(e){
+        title: { required:true, minlength:5 },
+        description: { required:true, minlength:10 },
+        release: { required:true, date: true},
+        genre_id: { required:true},
+        producer_id: { required:true},
+    },
+    messages: {
+        title: { required:'required'},
+        description: { required:'required'},
+        release: { required:'required'},
+        genre_id: { required:'required'},
+        producer: { required:'required'},
+        
+    },
+    errorPlacement: function(error, element){
+        error.insertAfter(element)
+    },
+    submitHandler: function(form,e) {
         e.preventDefault();
         var data = $("#movieCreate").serialize();
         console.log(data);
-            $.ajax({
-                type: "POST",
-                url: "/api/Movie",
-                data: data,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                        $("#addMovie").modal("hide");
-                        
-                    $('#movieBody').append(`
+        $.ajax({
+            type: "post",
+            url: "/api/Movie",
+            data: data,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                    $("#addMovie").modal("hide");
+                    
+                $('#movieBody').append(`
+    
+                <tr>
+                <td>${data.id}</td>
+                <td>${data.title}</td>
+                <td>${data.description}</td>
+                <td>${data.release}</td>
+                <td>${data.genre_id}</td>
+                <td>${data.producer_id}</td>
+                <td align='center'><i class="fas fa-edit" data-bs-toggle="modal" data-id="${data.id}" data-bs-target="#editMovie"></i></td>
+                <td align='center'><i class="fas fa-trash-alt movieDelete" data-id="${data.id}"></i></td>
         
-                    <tr>
-                    <td>${data.id}</td>
-                    <td>${data.title}</td>
-                    <td>${data.description}</td>
-                    <td>${data.release}</td>
-                    <td>${data.genre_id}</td>
-                    <td>${data.producer_id}</td>
-                    <td align='center'><i class="fas fa-edit" data-bs-toggle="modal" data-id="${data.id}" data-bs-target="#editMovie"></i></td>
-                    <td align='center'><i class="fas fa-trash-alt movieDelete" data-id="${data.id}"></i></td>
-            
-                    </tr>
-                    `)
+                </tr>
+                `)
 
-                },
-                error: function(error) {
-                    console.log('error');
-                }
-            });
-        }
+            },
+            error: function(error) {
+                console.log('error');
+            }
         });
-
+        }
+    });
 
     $('#editMovie').on('shown.bs.modal', function(e){
         var id = $(e.relatedTarget).attr('data-id');
@@ -207,7 +215,7 @@ const movie = {
     });
     
     $('#movieEdit').validate({
-        rules: {
+    rules: {
         title: { required:true, minlength:5 },
         description: { required:true, minlength:10 },
         release: { required:true, date: true},

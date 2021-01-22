@@ -34,7 +34,7 @@ const role = {
                         </tr>
                         `)
                     });
-
+                    $( "table tbody" ).sortable();
     $("#content").append(roleModal);
 
     $('#addRole').on('shown.bs.modal', (e) => {

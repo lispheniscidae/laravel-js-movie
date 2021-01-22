@@ -87,7 +87,7 @@ class RoleController extends Controller
         if ($request->ajax()) {
             $roles = Role::find($id);
             $roles = $roles->update($request->all());
-             return response()->json($roles);
+            return response()->json($roles);
             }
     }
 

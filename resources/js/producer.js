@@ -29,12 +29,12 @@ const producer ={
             <td>${element.name}</td>
             <td>${element.email}</td>
             <td align='center'><i class="fas fa-edit" data-bs-toggle="modal" data-id="${element.id}" data-bs-target="#editProducer"></i></td>
-            <td align='center'><i class="fas fa-trash-alt"></i></td>
+            <td align='center'><i class="fas fa-trash-alt producerDelete" data-id="${element.id}"></i></td>
     
             </tr>
             `)
         });
-
+        $( "table tbody" ).sortable();
         $('#content').append(producerModal);
 
 
@@ -77,7 +77,7 @@ const producer ={
                             <td>${data.name}</td>
                             <td>${data.email}</td>
                             <td align='center'><i class="fas fa-edit" data-bs-toggle="modal" data-id="${data.id}" data-bs-target="#editProducer"></i></td>
-                        d<td align='center'><i class="fas fa-trash-alt"></i></td>
+                            <td align='center'><i class="fas fa-trash-alt producerDelete" data-id="${data.id}"></i></td>
                         </tr>
                     `)
         
@@ -149,6 +149,32 @@ const producer ={
                 });
         }
     });
+
+     //Delete
+    $( ".producerDelete" ).on( "click", function(e) {
+        var id = $(e.currentTarget).attr('data-id');
+        var $tr = $(this).closest('tr')
+        console.log(id);
+        if (confirm(`Are you sure you want to delete Producer Number ${id}?`)) {
+            $.ajax({
+                type: "DELETE",
+                url: "/api/Producer/" + id,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: "json",
+                success: function (data) {
+                    // console.log(data);
+                    $tr.remove();
+                },
+                error:function(data){
+                    console.log('Error:',data);
+                }
+            })
+        }
+
+        });
+
     
     }
 }

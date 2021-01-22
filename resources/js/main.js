@@ -48,6 +48,7 @@ $('.link').on('click', (e) => {
         alert("error");
       }
   });
+  
   $( "#resizable" ).resizable();
 });
 });

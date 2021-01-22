@@ -2,7 +2,7 @@ import genreModal from "./genreModals";
 const genre = {
     show(response){
 
-          //SHOW-GENRE-TABLE
+        //   SHOW-GENRE-TABLE
         let title = `Genres`;
         let tableContent=`
             <thead class="">
@@ -34,6 +34,8 @@ const genre = {
             </tr>
             `)
         });
+
+        $( "table tbody" ).sortable();
 
         $('#content').append(genreModal);
 

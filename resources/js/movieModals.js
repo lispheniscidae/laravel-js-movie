@@ -9,9 +9,9 @@ export default function movieModal(){
             </div>
 
             <div class="modal-body">
-            <form id = "movieCreate">
+            <form id = "movieCreateForm">
                 <div class="form-group">
-                    <label for="Title" class="control-label">Title</label>
+                    <label for="title" class="control-label">Title</label>
                     <input type="text" class="form-control" id="title" name="title" value="">
                     
                 </div>
@@ -50,9 +50,9 @@ export default function movieModal(){
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn" style="background-color:#9dfdc7; color:#367591;" id="saveMovie">Save</button>
-                <button type="submit" class="btn" data-bs-dismiss="modal">Cancel</button>
-            </div>
+            <button type="submit" class="btn" style="background-color:#9dfdc7; color:#367591;" id="saveMovie" >Save</button>
+            <button type="submit" class="btn" data-bs-dismiss="modal">Cancel</button>
+        </div>
 </form>
         </div>
     </div>

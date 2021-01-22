@@ -15,9 +15,6 @@ const actor = {
                 </tr>
                 <thead>
                 <tbody id="actorBody">
-                <tr>
-                </tr>
-                    
                 </tbody>
                 `;
                 
@@ -30,7 +27,7 @@ const actor = {
         response.forEach(element => {
 
             $('#actorBody').append(`
-            <tr class="rowdata">
+            <tr id="sortable">
             <td>${element.id}</td>
             <td>${element.fname}</td>
             <td>${element.lname}</td>
@@ -40,9 +37,13 @@ const actor = {
             <td align='center'><i class="fas fa-trash-alt actorDelete" data-id="${element.id}"></i></td>
     
             </tr>
+            
+        
+           
             `)
         });
 
+        $( "table tbody" ).sortable();
         $('#content').append(actorModal);
 
 
