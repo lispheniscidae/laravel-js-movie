@@ -15,17 +15,13 @@ export default function roleModal(){
                     <div class="form-group col-md-6">
                         <label for="genre">Movie</label>
                         <select class="form-control" id="movie_id" name="movie_id"> 
-                        
                         </select>
-                        
                     </div>
     
                     <div class="form-group col-md-6">
                         <label for="genre">Actor</label>
                         <select class="form-control" id="actor_id" name="actor_id"> 
-                        
                         </select>
-                        
                     </div>
     
                     <div class="form-group">
@@ -51,7 +47,7 @@ export default function roleModal(){
                 </div>
     
                 <div class="modal-body">
-            <form id="roleEdit">
+    <form id="roleEdit">
                     <div class="form-group col-md-6">
                         <label for="genre">Movie</label>
                         <select class="form-control producerMovie_id" id="movie_id" name="movie_id"> 
@@ -76,7 +72,7 @@ export default function roleModal(){
                     <button type="submit" class="btn" style="background-color:#9dfdc7; color:#367591;" id="updateRole" >Save</button>
                     <button type="submit" class="btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
-            </form>   
+    </form>   
                 </div>
             </div>
         </div>

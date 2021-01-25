@@ -19,14 +19,6 @@ class GenreController extends Controller
             return response()->json($genres);
     }
 
-    public function getGenreAll(Request $request){
-        if ($request->ajax()){
-            $genres = Genre::orderBy('id')->get();
-            return response()->json($genres);
-        }
-
-        return view('index');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -84,7 +76,7 @@ class GenreController extends Controller
         if ($request->ajax()) {
             $genres = Genre::find($id);
             $genres = $genres->update($request->all());
-             return response()->json($genres);
+            return response()->json($genres);
             }
     }
 

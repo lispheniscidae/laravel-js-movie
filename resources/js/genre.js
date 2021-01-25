@@ -2,7 +2,7 @@ import genreModal from "./genreModals";
 const genre = {
     show(response){
 
-        //   SHOW-GENRE-TABLE
+        //  SHOW-GENRE-TABLE
         let title = `Genres`;
         let tableContent=`
             <thead class="">
@@ -19,10 +19,12 @@ const genre = {
 
         let addButton = `<button type="button" class="btn  "data-bs-toggle="modal" data-bs-target="#addGenre"><i class="fas fa-plus"></i></button>`;
 
+         //APPEND TABLE FORMAT TO INDEX
         $('#tableContent').html(tableContent);
         $('#addButton').html(addButton);
         $('#title').html(title);
 
+        //APPEND TABLE DATA TO INDEX
         response.forEach(element => {
             $('#genreBody').append(`
             <tr>
@@ -35,11 +37,10 @@ const genre = {
             `)
         });
 
-        $( "table tbody" ).sortable();
-
+        //APPEND MODAL FORM
         $('#content').append(genreModal);
 
-      // CREATE-GENRE
+    //CREATE-GENRE WITH JQUERY VALIDATION
     $('#genreCreate').validate({
             rules: {
             name: { required:true, minlength:5 }
@@ -60,7 +61,9 @@ const genre = {
                 type: "post",
                 url: "/api/Genre",
                 data: data,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                },
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
@@ -69,9 +72,7 @@ const genre = {
                         let input = $(this)
                         input.val('')
                     });
-
-                    $(this).modal('hide'); 
-
+                    $('#addGenre').modal('hide');
                     $('#genreBody').append(`
 
                         <tr>
@@ -91,62 +92,69 @@ const genre = {
         }
     });
 
+//APPEND ROW DATA ON MODAL FORM
+    $('#editGenre').on('show.bs.modal', function(e) {
+        var id = $(e.relatedTarget).attr('data-id');
+        console.log(id);
+    //ADD ROW ID ON HIDDEN FORM
+        $('<input>').attr({type: 'hidden', id:'id',name: 'id',value: id}).appendTo('#editGenre');
 
-        $('#editGenre').on('show.bs.modal', function(e) {
-            var id = $(e.relatedTarget).attr('data-id');
-            console.log(id);
-
-            $('<input>').attr({type: 'hidden', id:'id',name: 'id',value: id}).appendTo('#editGenre');
-
-            $.ajax({
-                type: "GET",
-                url: "api/Genre/" + id + "/edit",
-                success: function(data){
-                    console.log(data);
-                    $(".genreName").val(data.name);
-                },
-                error: function(){
-                console.log('AJAX load did not work');
-                alert("error");
-                }
-            });
+        //GET DATA OF ROW FROM DATABASE
+        $.ajax({
+            type: "GET",
+            url: "api/Genre/" + id + "/edit",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+            },
+            success: function(data){
+                console.log(data);
+                $(".genreName").val(data.name);
+            },
+            error: function(){
+            console.log('AJAX load did not work');
+            alert("error");
+            }
         });
+    });
 
-        $('#genreEdit').validate({
-            rules: {
-                name: { required:true, minlength:5 }
-            },
-            messages: {
-                name: { required:'required'}
-            },
-            errorPlacement: function(error, element){
-                error.insertAfter(element)
-            },
-            submitHandler: function(form,e) {
-                e.preventDefault();
-                var id = $('#id').val();
-                var data = $("#genreEdit").serialize();
-                    console.log(data);
-                    $.ajax({
-                        type: "PUT",
-                        url: "/api/Genre/"+ id ,
-                        data: data,
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        dataType: "json",
-                        success: function(data) {
-                            console.log(data);
-                            $('#editActor').each(function(){
-                                    $(this).modal('hide'); 
-                                });
-                        },
-                        error: function(error) {
-                            console.log('error');
-                        }
-                    });
+//UPDATE ROW DATA ON DATABASE WITH JQUERY VALIDATION
+    $('#genreEdit').validate({
+        rules: {
+            name: { required:true, minlength:5 }
+        },
+        messages: {
+            name: { required:'required'}
+        },
+        errorPlacement: function(error, element){
+            error.insertAfter(element)
+        },
+        submitHandler: function(form,e) {
+            e.preventDefault();
+            var id = $('#id').val();
+            var data = $("#genreEdit").serialize();
+                console.log(data);
+                $.ajax({
+                    type: "PUT",
+                    url: "/api/Genre/"+ id ,
+                    data: data,
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        $('#editGenre').each(function(){
+                                $(this).modal('hide'); 
+                            });
+                    },
+                    error: function(error) {
+                        console.log('error');
                     }
-        });
+                });
+                }
+    });
 
-    //Delete
+  //DELETE ROW FROM DATABASE
     $( ".genreDelete" ).on( "click", function(e) {
         var id = $(e.currentTarget).attr('data-id');
         var $tr = $(this).closest('tr')
@@ -156,7 +164,7 @@ const genre = {
                 type: "DELETE",
                 url: "/api/Genre/" + id,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 },
                 dataType: "json",
                 success: function (data) {

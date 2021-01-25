@@ -7,7 +7,7 @@ use App\Http\Controllers\ActorController;
 use App\Http\Controllers\ProducerController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +25,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('Movie', MovieController::class);
-Route::resource('Actor', ActorController::class);
-Route::resource('Producer', ProducerController::class);
-Route::resource('Genre', GenreController::class);
-Route::resource('Role', RoleController::class);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
-Route::get('/movie/all', [MovieController::class, 'getMovieAll']);
-Route::get('/actor/all', [ActorController::class, 'getActorAll']);
-Route::get('/genre/all', [GenreController::class, 'getGenreAll']);
-Route::get('/producer/all', [ProducerController::class, 'getProducerAll']);
-Route::get('/role/all', [RoleController::class, 'getRoleAll']);
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('details', [AuthController::class, 'user_info']);
+
+    Route::resource('Movie', MovieController::class);
+    Route::resource('Actor', ActorController::class);
+    Route::resource('Producer', ProducerController::class);
+    Route::resource('Genre', GenreController::class);
+    Route::resource('Role', RoleController::class);
+});

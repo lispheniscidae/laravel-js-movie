@@ -12,11 +12,6 @@ class Movie extends Model
     protected $fillable = ['title', 'description', 'release', 'genre_id' , 'producer_id'];
 
 
-    // public function role()
-    // {
-    //     return $this->hasMany(Role::class);
-    // }
-
     public function producer()
     {
         return $this->belongsTo(Producer::class);

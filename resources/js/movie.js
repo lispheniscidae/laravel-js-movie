@@ -2,6 +2,8 @@ import movieModal from './movieModals';
 const movie = {        
     //SHOW-MOVIE-TABLE
     show(response){
+
+        //INITIATE DATA TO APPEND TO INDEX BLADE
         let  title = `Movies`;
         let tableContent = `<thead>
                 <tr>
@@ -21,10 +23,13 @@ const movie = {
         `;
     
         let addButton = `<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addMovie"><i class="fas fa-plus"></i></button>`;
+
+        //APPEND TABLE FORMAT TO INDEX
         $('#tableContent').html(tableContent);
         $('#addButton').html(addButton);
         $('#title').html(title);
 
+        //APPEND TABLE DATA TO INDEX
         response.forEach(element => {
             $('#movieBody').append(`
             <tr>
@@ -40,15 +45,21 @@ const movie = {
             </tr>
             `)
         });
-        $( "table tbody" ).sortable();
 
+    //APPEND MODAL FORM
     $('#content').append(movieModal);
 
+
+    // GET GENRE AND PRODUCER ON SHOW OF MOVIE FORM MODAL
     $('#addMovie').on('shown.bs.modal', (e) => {
-        // ITERATE-GENRE-MODAL
+
+        // ITERATE-GENRE-MODAL ON DROPDOWN
             $.ajax({
                 type: "GET",
                 url: "/api/Genre",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                },
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
@@ -68,10 +79,13 @@ const movie = {
                 }
             });  
         
-        //ITERATE-PRODUCER-MODAL
+        //ITERATE-PRODUCER-MODAL ON DROPDOWN
             $.ajax({
                 type: "GET",
                 url: "/api/Producer",
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                },
                 dataType: "json",
             
                 success: function(data) {
@@ -88,13 +102,11 @@ const movie = {
                     console.log('error');
                 }
             });
+    });
 
 
-        });
-
-
-     //CREATE-MOVIE
-    $('#movieCreateForm').validate({
+     //CREATE-MOVIE WITH JQUERY VALIDATION
+    var validObj = $('#movieCreateForm').validate({
         rules: {
         title: { required:true, minlength:5 },
         description: { required:true, minlength:10 },
@@ -114,14 +126,25 @@ const movie = {
         error.insertAfter(element)
     },
     submitHandler: function(form,e) {
-        e.preventDefault();
+        
         var data = $("#movieCreate").serialize();
         console.log(data);
+        
+        }
+    });
+    validObj.form();
+    $('#saveMovie').on('click', function (e) {
+        if(!validObj.form()){
+            e.preventDefault();
+        }
+        var data = $('#movieCreateForm').serialize();
         $.ajax({
             type: "post",
             url: "/api/Movie",
             data: data,
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+            },
             dataType: "json",
             success: function(data) {
                 console.log(data);
@@ -144,12 +167,12 @@ const movie = {
 
             },
             error: function(error) {
-                console.log('error');
+                console.log(error);
             }
         });
-        }
-    });
+    })
 
+    //APPEND ROW DATA ON MODAL FORM
     $('#editMovie').on('shown.bs.modal', function(e){
         var id = $(e.relatedTarget).attr('data-id');
         console.log(id);
@@ -158,6 +181,9 @@ const movie = {
         $.ajax({
             type: "GET",
             url: "/api/Genre",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+            },
             dataType: "json",
         
             success: function(data) {
@@ -179,6 +205,9 @@ const movie = {
         $.ajax({
             type: "GET",
             url: "/api/Producer",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+            },
             dataType: "json",
             success: function(data) {
                 console.log(data);
@@ -194,11 +223,16 @@ const movie = {
             }
         });  
 
+        //ADD ROW ID ON HIDDEN FORM
         $('<input>').attr({type: 'hidden', id:'id',name: 'id',value: id}).appendTo('#movieEdit');
 
+        //GET DATA OF ROW FROM DATABASE
         $.ajax({
             type: "GET",
             url: "api/Movie/" + id + "/edit",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+            },
             success: function(data){
                 console.log(data);
                 $(".movieTitle").val(data.title);
@@ -214,6 +248,9 @@ const movie = {
         });
     });
     
+
+
+//UPDATE ROW DATA ON DATABASE WITH JQUERY VALIDATION
     $('#movieEdit').validate({
     rules: {
         title: { required:true, minlength:5 },
@@ -241,7 +278,9 @@ const movie = {
                 type: "PUT",
                 url: "/api/Movie/"+ id ,
                 data: data,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                },
                 dataType: "json",
                 success: function(data) {
                     $("#editMovie").modal("hide");
@@ -256,21 +295,8 @@ const movie = {
     });
 
 
-        $('#addMovie').on('hidden.bs.modal', (e) => {
-            // $(".modal-body").html("");
-            $('#genre_id').empty();
-            $('#producer_id').empty();
-        });
-
-        $('#editMovie').on('hidden.bs.modal', (e) => {
-            // $(".modal-body").html("");
-            $('.movieGenre_id').empty();
-            $('.movieProducer_id').empty();
-        });
-
-
-        //Delete
-        $( ".movieDelete" ).on( "click", function(e) {
+     //DELETE ROW FROM DATABASE
+    $( ".movieDelete" ).on( "click", function(e) {
         var id = $(e.currentTarget).attr('data-id');
         var $tr = $(this).closest('tr')
         console.log(id);
@@ -279,7 +305,7 @@ const movie = {
                 type: "DELETE",
                 url: "/api/Movie/" + id,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 },
                 dataType: "json",
                 success: function (data) {
@@ -291,7 +317,17 @@ const movie = {
                 }
             })
         }
+    });
 
+    //EMPTY DROPDOWN DATA WHEN MODAL FORM IS CLOSED
+        $('#addMovie').on('hidden.bs.modal', (e) => {
+            $('#genre_id').empty();
+            $('#producer_id').empty();
+        });
+
+        $('#editMovie').on('hidden.bs.modal', (e) => {
+            $('.movieGenre_id').empty();
+            $('.movieProducer_id').empty();
         });
 
     }

@@ -20,14 +20,6 @@ class MovieController extends Controller
         // return response()->json('heyy');
     }
 
-    public function getMovieAll(Request $request){
-        if ($request->ajax()){
-            $movies = Movie::orderBy('id')->get();
-            return response()->json($movies);
-         }
-
-         return view('index');
-    }
 
     /**
      * Show the form for creating a new resource.

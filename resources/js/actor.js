@@ -1,7 +1,7 @@
 import actorModal from "./actorModals";
 const actor = {
     show(response){
-
+//SHOW-ACTOR-TABLE
         let title=`Actors`;
         let tableContent = `
                 <thead>
@@ -20,12 +20,13 @@ const actor = {
                 
         let addButton = `<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#addActor"><i class="fas fa-plus"></i></button>`;
         
+        //APPEND TABLE FORMAT TO INDEX
         $('#tableContent').html(tableContent);
         $('#addButton').html(addButton);
         $('#title').html(title);
     
+        //APPEND TABLE DATA TO INDEX
         response.forEach(element => {
-
             $('#actorBody').append(`
             <tr id="sortable">
             <td>${element.id}</td>
@@ -37,19 +38,13 @@ const actor = {
             <td align='center'><i class="fas fa-trash-alt actorDelete" data-id="${element.id}"></i></td>
     
             </tr>
-            
-        
-           
             `)
         });
-
-        $( "table tbody" ).sortable();
-        $('#content').append(actorModal);
-
-
-        // CREATE-ACTOR
+    //APPEND MODAL FORM
+    $('#content').append(actorModal);
 
 
+// CREATE-ACTOR WITH JQUERY VALIDATION
     $('#actorCreate').validate({
         rules: {
             fname: { required:true, minlength:5 },
@@ -74,7 +69,9 @@ const actor = {
                     type: "post",
                     url: "/api/Actor",
                     data: data,
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    },
                     dataType: "json",
                     success: function(data) {
                         console.log(data);
@@ -104,13 +101,16 @@ const actor = {
         }
     });
 
-     //EDIT-ACTOR     
+      //APPEND ROW DATA ON MODAL FORM   
         $('#editActor').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).attr('data-id');
             console.log(id);
             $('<input>').attr({type: 'hidden', id:'id',name: 'id',value: id}).appendTo('#editActor');
             $.ajax({
                 type: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                },
                 url: "api/Actor/" + id + "/edit",
                 success: function(data){
                     console.log(data);
@@ -126,8 +126,7 @@ const actor = {
         });
 
 
-        //UPDATE-ACTOR
-
+    //UPDATE-ACTOR ON DATABASE WITH JQUERY VALIDATION
     $('#actorEdit').validate({
         rules: {
             fname: { required:true, minlength:5,},
@@ -151,7 +150,9 @@ const actor = {
                     type: "PUT",
                     url: "/api/Actor/"+ id ,
                     data: data,
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    },
                     dataType: "json",
                     success: function(data) {
                         console.log(data);
@@ -166,7 +167,7 @@ const actor = {
             }
         });
 
-      //Delete
+    //DELETE ROW FROM DATABASE
     $( ".actorDelete" ).on( "click", function(e) {
         var id = $(e.currentTarget).attr('data-id');
         var $tr = $(this).closest('tr')
@@ -176,7 +177,7 @@ const actor = {
                 type: "DELETE",
                 url: "/api/Actor/" + id,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 },
                 dataType: "json",
                 success: function (data) {
@@ -188,7 +189,6 @@ const actor = {
                 }
             })
         }
-
         });
 
 

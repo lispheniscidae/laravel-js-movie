@@ -5,7 +5,7 @@ const producer ={
      //SHOW-PRODUCER-TABLE
     let title=`Producers`;
     let tableContent=
-        `<thead class="table-dark">
+        `<thead>
         <tr>
             <th>ID</th>
             <th>name</th>
@@ -18,10 +18,13 @@ const producer ={
             </tbody>
         `;
         let addButton = `<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#addProducer"><i class="fas fa-plus"></i></button>`;
+        
+        //APPEND TABLE FORMAT TO INDEX
         $('#tableContent').html(tableContent);
         $('#addButton').html(addButton);
         $('#title').html(title);
 
+        //APPEND TABLE DATA TO INDEX
         response.forEach(element => {
             $('#producerBody').append(`
             <tr>
@@ -34,12 +37,13 @@ const producer ={
             </tr>
             `)
         });
-        $( "table tbody" ).sortable();
-        $('#content').append(producerModal);
+
+    //APPEND MODAL FORM
+    $('#content').append(producerModal);
 
 
 
-//  CREATE-PRODUCER
+// CREATE-PRODUCER WITH JQUERY VALIDATION
     $('#producerCreate').validate({
         rules: {
             name: { required:true, minlength:5 },
@@ -61,16 +65,20 @@ const producer ={
                 type: "post",
                 url: "/api/Producer",
                 data: data,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                },
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
-                     //clear input
+                     //CLEAR INPUT FORM
                     $('#producerCreate :input').each(function () {
                         let input = $(this)
                         input.val('')
                     });
-                        $('#addProducer').modal('hide');
+                    
+                    $('#addProducer').modal('hide');
+                    
                     $('#producerBody').append(`
                         <tr>
                             <td>${data.id}</td>
@@ -89,7 +97,7 @@ const producer ={
         }
     });
 
- // EDIT PRODUCER
+//APPEND ROW DATA ON MODAL FORM
     $('#editProducer').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).attr('data-id');
         console.log(id);
@@ -99,6 +107,9 @@ const producer ={
         $.ajax({
             type: "GET",
             url: "api/Producer/" + id + "/edit",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+            },
             success: function(data){
                 console.log(data);
                 $(".producerName").val(data.name);
@@ -112,7 +123,7 @@ const producer ={
     });
 
 
-//UPDATE PRODUCER
+//UPDATE PRODUCER ON DATABASE WITH JQUERY VALIDATION
     $('#producerEdit').validate({
         rules: {
         name: { required:true, minlength:5 },
@@ -134,7 +145,9 @@ const producer ={
                     type: "PUT",
                     url: "/api/Producer/"+ id ,
                     data: data,
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    },
                     dataType: "json",
                     success: function(data) {
                         console.log(data);
@@ -150,7 +163,7 @@ const producer ={
         }
     });
 
-     //Delete
+    //DELETE ROW FROM DATABASE
     $( ".producerDelete" ).on( "click", function(e) {
         var id = $(e.currentTarget).attr('data-id');
         var $tr = $(this).closest('tr')
@@ -160,11 +173,10 @@ const producer ={
                 type: "DELETE",
                 url: "/api/Producer/" + id,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 },
                 dataType: "json",
                 success: function (data) {
-                    // console.log(data);
                     $tr.remove();
                 },
                 error:function(data){
@@ -172,7 +184,6 @@ const producer ={
                 }
             })
         }
-
         });
 
     

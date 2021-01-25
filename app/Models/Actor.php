@@ -12,8 +12,7 @@ class Actor extends Model
     protected $fillable = ['fname', 'lname', 'note', 'imgpath'];
 
 
-    public function role()
-    {
+    public function role(){
         return $this->hasMany(Role::class);
     }
 }

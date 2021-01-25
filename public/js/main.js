@@ -2,6 +2,22 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./resources/js/AuthenticationModal.js":
+/*!*********************************************!*\
+  !*** ./resources/js/AuthenticationModal.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ authModal
+/* harmony export */ });
+function authModal() {
+  return "\n    \n<!-------------------------------------- LOGIN-MODAL --------------------------- -->\n<div id=\"loginModal\" class=\"modal fade\">\n\t<div class=\"modal-dialog modal-login\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\t\t\t\t\n\t\t\t\t<h4 class=\"modal-title\">LOGIN</h4>\n\t\t\t\t<button type=\"button\" class=\"btn close\" data-bs-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\t\t\t\t<form id=\"loginForm\">\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<i class=\"fa fa-user\"></i>\n\t\t\t\t\t\t<input type=\"email\" class=\"form-control\" id=\"lemail\" name=\"email\" placeholder=\"Email\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<i class=\"fa fa-lock\"></i>\n\t\t\t\t\t\t<input type=\"password\" class=\"form-control\" id=\"lpassword\" name=\"password\" placeholder=\"Password\">\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<input type=\"submit\" class=\"btn btn-lg\" id=\"loginBtn\" value=\"Login\">\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>     \n    \n<!-------------------------------------- REGISTER-MODAL ----------------------------->\n<div id=\"registerModal\" class=\"modal fade\">\n\t<div class=\"modal-dialog modal-login\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\t\t\t\t\n\t\t\t\t<h4 class=\"modal-title\">REGISTER</h4>\n\t\t\t\t<button type=\"button\" class=\"btn close\" data-bs-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\t\t\t\t<form id=\"registerForm\">\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<i class=\"fa fa-user\"></i>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" placeholder=\"Name\" >\n                    </div>\n                    <div class=\"form-group\">\n\t\t\t\t\t\t<i class=\"fa fa-user\"></i>\n\t\t\t\t\t\t<input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Email\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<i class=\"fa fa-lock\"></i>\n\t\t\t\t\t\t<input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" placeholder=\"Password\">\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<input type=\"submit\" class=\"btn btn-lg\" id=\"registerBtn\" value=\"Register\">\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\t\n\t\t</div>\n\t</div>\n</div>     \n\n\n\n    ";
+}
+
+/***/ }),
+
 /***/ "./resources/js/actor.js":
 /*!*******************************!*\
   !*** ./resources/js/actor.js ***!
@@ -16,17 +32,20 @@ __webpack_require__.r(__webpack_exports__);
 
 var actor = {
   show: function show(response) {
+    //SHOW-ACTOR-TABLE
     var title = "Actors";
     var tableContent = "\n                <thead>\n                <tr>\n                <th>ID</th>\n                <th>fname</th>\n                <th>lname</th>\n                <th>note</th>\n                <th>Edit</th>\n                <th>Delete</th>\n                </tr>\n                <thead>\n                <tbody id=\"actorBody\">\n                </tbody>\n                ";
-    var addButton = "<button type=\"button\" class=\"btn \" data-bs-toggle=\"modal\" data-bs-target=\"#addActor\"><i class=\"fas fa-plus\"></i></button>";
+    var addButton = "<button type=\"button\" class=\"btn \" data-bs-toggle=\"modal\" data-bs-target=\"#addActor\"><i class=\"fas fa-plus\"></i></button>"; //APPEND TABLE FORMAT TO INDEX
+
     $('#tableContent').html(tableContent);
     $('#addButton').html(addButton);
-    $('#title').html(title);
+    $('#title').html(title); //APPEND TABLE DATA TO INDEX
+
     response.forEach(function (element) {
-      $('#actorBody').append("\n            <tr id=\"sortable\">\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.fname, "</td>\n            <td>").concat(element.lname, "</td>\n            <td>").concat(element.note, "</td>\n            \n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editActor\" data-id=\"").concat(element.id, "\" id=\"editActorIcon\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt actorDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            \n        \n           \n            "));
-    });
-    $("table tbody").sortable();
-    $('#content').append(_actorModals__WEBPACK_IMPORTED_MODULE_0__.default); // CREATE-ACTOR
+      $('#actorBody').append("\n            <tr id=\"sortable\">\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.fname, "</td>\n            <td>").concat(element.lname, "</td>\n            <td>").concat(element.note, "</td>\n            \n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editActor\" data-id=\"").concat(element.id, "\" id=\"editActorIcon\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt actorDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
+    }); //APPEND MODAL FORM
+
+    $('#content').append(_actorModals__WEBPACK_IMPORTED_MODULE_0__.default); // CREATE-ACTOR WITH JQUERY VALIDATION
 
     $('#actorCreate').validate({
       rules: {
@@ -67,7 +86,7 @@ var actor = {
           url: "/api/Actor",
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -85,7 +104,7 @@ var actor = {
           }
         });
       }
-    }); //EDIT-ACTOR     
+    }); //APPEND ROW DATA ON MODAL FORM   
 
     $('#editActor').on('show.bs.modal', function (e) {
       var id = $(e.relatedTarget).attr('data-id');
@@ -98,6 +117,9 @@ var actor = {
       }).appendTo('#editActor');
       $.ajax({
         type: "GET",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         url: "api/Actor/" + id + "/edit",
         success: function success(data) {
           console.log(data);
@@ -110,7 +132,7 @@ var actor = {
           alert("error");
         }
       });
-    }); //UPDATE-ACTOR
+    }); //UPDATE-ACTOR ON DATABASE WITH JQUERY VALIDATION
 
     $('#actorEdit').validate({
       rules: {
@@ -151,7 +173,7 @@ var actor = {
           url: "/api/Actor/" + id,
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -165,7 +187,7 @@ var actor = {
           }
         });
       }
-    }); //Delete
+    }); //DELETE ROW FROM DATABASE
 
     $(".actorDelete").on("click", function (e) {
       var id = $(e.currentTarget).attr('data-id');
@@ -177,7 +199,7 @@ var actor = {
           type: "DELETE",
           url: "/api/Actor/" + id,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -207,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ actorModal
 /* harmony export */ });
 function actorModal() {
-  return "\n\n<!-- ----------------------------------------------------------ACTORCREATE----------------------------------------------- -->\n<div class=\"modal fade\" id=\"addActor\" tabindex=\"-1\" aria-labelledby=\"addActor\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header\">\n                <h2>Create new actor</h2>\n            </div>\n\n            <div class=\"modal-body\">\n        <form class=\"actorCreate\" id=\"actorCreate\">\n            <div class=\"form-group\">\n                <label for=\"fname\" class=\"control-label\">First Name</label>\n                <input type=\"text\" class=\"form-control\" id=\"fname\" name=\"fname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"lname\" class=\"control-label\">Last name</label>\n                <input type=\"text\" class=\"form-control \" id=\"lname\" name=\"lname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"note\">Note</label>\n                <textarea class=\"form-control\" id=\"note\" name=\"note\" rows=\"3\" value=\"\"></textarea>\n            </div>\n\n            <div class=\"modal-footer\">\n            <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveActor\" >Save</button>\n            <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n        </form>\n            </div>\n\n        </div>\n    </div>\n</div>\n<!-- ----------------------------------------------------------ACTOREDIT--------------------------------------------------- -->\n<div class=\"modal fade\" id=\"editActor\" tabindex=\"-1\" aria-labelledby=\"editActor\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header\">\n    \n                <h2>Edit actor</h2>\n            </div>\n\n            <div class=\"modal-body\">\n        <form id=\"actorEdit\">      \n            <div class=\"form-group\">\n                <label for=\"fname\" class=\"control-label\">First Name</label>\n                <input type=\"text\" class=\"form-control actorfname\" id=\"fname\" name=\"fname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"lname\" class=\"control-label\">Last name</label>\n                <input type=\"text\" class=\"form-control actorlname\" id=\"lname\" name=\"lname\" data-id=\"lname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"note\">Note</label>\n                <textarea class=\"form-control actornote\" id=\"note\" name=\"note\" rows=\"3\" value=\"\"></textarea>\n            </div>\n\n            <div class=\"modal-footer\">\n            <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateActor\" >Save</button>\n            <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n        </form>\n            </div>\n        </div>\n    </div>\n</div>";
+  return "\n<!-- ----------------------------------------------------------ACTORCREATE----------------------------------------------- -->\n<div class=\"modal fade\" id=\"addActor\" tabindex=\"-1\" aria-labelledby=\"addActor\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header\">\n                <h2>Create new actor</h2>\n            </div>\n\n            <div class=\"modal-body\">\n        <form class=\"actorCreate\" id=\"actorCreate\">\n            <div class=\"form-group\">\n                <label for=\"fname\" class=\"control-label\">First Name</label>\n                <input type=\"text\" class=\"form-control\" id=\"fname\" name=\"fname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"lname\" class=\"control-label\">Last name</label>\n                <input type=\"text\" class=\"form-control \" id=\"lname\" name=\"lname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"note\">Note</label>\n                <textarea class=\"form-control\" id=\"note\" name=\"note\" rows=\"3\" value=\"\"></textarea>\n            </div>\n\n            <div class=\"modal-footer\">\n            <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveActor\" >Save</button>\n            <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n        </form>\n            </div>\n\n        </div>\n    </div>\n</div>\n<!-- ----------------------------------------------------------ACTOREDIT--------------------------------------------------- -->\n<div class=\"modal fade\" id=\"editActor\" tabindex=\"-1\" aria-labelledby=\"editActor\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header\">\n    \n                <h2>Edit actor</h2>\n            </div>\n\n            <div class=\"modal-body\">\n        <form id=\"actorEdit\">      \n            <div class=\"form-group\">\n                <label for=\"fname\" class=\"control-label\">First Name</label>\n                <input type=\"text\" class=\"form-control actorfname\" id=\"fname\" name=\"fname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"lname\" class=\"control-label\">Last name</label>\n                <input type=\"text\" class=\"form-control actorlname\" id=\"lname\" name=\"lname\" data-id=\"lname\" value=\"\">\n            </div>\n\n            <div class=\"form-group\">\n                <label for=\"note\">Note</label>\n                <textarea class=\"form-control actornote\" id=\"note\" name=\"note\" rows=\"3\" value=\"\"></textarea>\n            </div>\n\n            <div class=\"modal-footer\">\n            <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateActor\" >Save</button>\n            <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n        </form>\n            </div>\n        </div>\n    </div>\n</div>";
 }
 
 /***/ }),
@@ -226,18 +248,20 @@ __webpack_require__.r(__webpack_exports__);
 
 var genre = {
   show: function show(response) {
-    //   SHOW-GENRE-TABLE
+    //  SHOW-GENRE-TABLE
     var title = "Genres";
     var tableContent = "\n            <thead class=\"\">\n                <tr>\n                <th>ID</th>\n                <th>genre</th>\n                <th>Edit</th>\n                <th>Delete</th>\n                </tr>\n            </thead>\n            <tbody id=\"genreBody\">\n            </tbody>\n            ";
-    var addButton = "<button type=\"button\" class=\"btn  \"data-bs-toggle=\"modal\" data-bs-target=\"#addGenre\"><i class=\"fas fa-plus\"></i></button>";
+    var addButton = "<button type=\"button\" class=\"btn  \"data-bs-toggle=\"modal\" data-bs-target=\"#addGenre\"><i class=\"fas fa-plus\"></i></button>"; //APPEND TABLE FORMAT TO INDEX
+
     $('#tableContent').html(tableContent);
     $('#addButton').html(addButton);
-    $('#title').html(title);
+    $('#title').html(title); //APPEND TABLE DATA TO INDEX
+
     response.forEach(function (element) {
       $('#genreBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.name, "</td>\n            <td align='center'><i class=\"fas fa-edit\"data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editGenre\" ></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt genreDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
-    });
-    $("table tbody").sortable();
-    $('#content').append(_genreModals__WEBPACK_IMPORTED_MODULE_0__.default); // CREATE-GENRE
+    }); //APPEND MODAL FORM
+
+    $('#content').append(_genreModals__WEBPACK_IMPORTED_MODULE_0__.default); //CREATE-GENRE WITH JQUERY VALIDATION
 
     $('#genreCreate').validate({
       rules: {
@@ -263,7 +287,7 @@ var genre = {
           url: "/api/Genre",
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -273,7 +297,7 @@ var genre = {
               var input = $(this);
               input.val('');
             });
-            $(this).modal('hide');
+            $('#addGenre').modal('hide');
             $('#genreBody').append("\n\n                        <tr>\n                        <td>".concat(data.id, "</td>\n                        <td>").concat(data.name, "</td>\n                        <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(data.id, "\" data-bs-target=\"#editGenre\"></i></td>\n                        <td align='center'><i class=\"fas fa-trash-alt genreDelete\" data-id=\"").concat(data.id, "\"></i></td>\n                        </tr>\n                    "));
           },
           error: function error(_error) {
@@ -281,19 +305,25 @@ var genre = {
           }
         });
       }
-    });
+    }); //APPEND ROW DATA ON MODAL FORM
+
     $('#editGenre').on('show.bs.modal', function (e) {
       var id = $(e.relatedTarget).attr('data-id');
-      console.log(id);
+      console.log(id); //ADD ROW ID ON HIDDEN FORM
+
       $('<input>').attr({
         type: 'hidden',
         id: 'id',
         name: 'id',
         value: id
-      }).appendTo('#editGenre');
+      }).appendTo('#editGenre'); //GET DATA OF ROW FROM DATABASE
+
       $.ajax({
         type: "GET",
         url: "api/Genre/" + id + "/edit",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           $(".genreName").val(data.name);
@@ -303,7 +333,8 @@ var genre = {
           alert("error");
         }
       });
-    });
+    }); //UPDATE ROW DATA ON DATABASE WITH JQUERY VALIDATION
+
     $('#genreEdit').validate({
       rules: {
         name: {
@@ -329,12 +360,12 @@ var genre = {
           url: "/api/Genre/" + id,
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
             console.log(data);
-            $('#editActor').each(function () {
+            $('#editGenre').each(function () {
               $(this).modal('hide');
             });
           },
@@ -343,7 +374,7 @@ var genre = {
           }
         });
       }
-    }); //Delete
+    }); //DELETE ROW FROM DATABASE
 
     $(".genreDelete").on("click", function (e) {
       var id = $(e.currentTarget).attr('data-id');
@@ -355,7 +386,7 @@ var genre = {
           type: "DELETE",
           url: "/api/Genre/" + id,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -402,23 +433,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _producer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./producer */ "./resources/js/producer.js");
 /* harmony import */ var _genre__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./genre */ "./resources/js/genre.js");
 /* harmony import */ var _role__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./role */ "./resources/js/role.js");
+/* harmony import */ var _AuthenticationModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AuthenticationModal */ "./resources/js/AuthenticationModal.js");
+
 
 
 
 
 
 $(document).ready(function () {
+  // .link is from navigation bar data-id
   $('.link').on('click', function (e) {
     var link = e.currentTarget.dataset.id;
     console.log(link);
     $.ajax({
       type: "GET",
       url: "/api/" + link,
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      },
       dataType: 'json',
       success: function success(response) {
         switch (link) {
           case "Movie":
-            console.log(response);
             _movie__WEBPACK_IMPORTED_MODULE_0__.default.show(response);
             break;
 
@@ -442,13 +478,110 @@ $(document).ready(function () {
             break;
         }
       },
-      error: function error(err) {
-        console.log(err);
+      error: function error(_error) {
+        console.log(_error);
         console.log('AJAX load did not work');
         alert("error");
       }
     });
+    $("table tbody").sortable();
     $("#resizable").resizable();
+  }); // APPEND LOGIN AND REGISTRATION MODAL
+
+  $('#content').append(_AuthenticationModal__WEBPACK_IMPORTED_MODULE_5__.default); // REGISTRATION
+
+  $('#registerForm').validate({
+    rules: {
+      name: {
+        required: true
+      },
+      email: {
+        required: true,
+        email: true
+      },
+      password: {
+        required: true
+      }
+    },
+    messages: {
+      name: {
+        required: 'required'
+      },
+      email: {
+        required: 'required'
+      },
+      password: {
+        required: 'required'
+      }
+    },
+    errorPlacement: function errorPlacement(error, element) {
+      error.insertAfter(element);
+    },
+    submitHandler: function submitHandler(form, e) {
+      var data = $('#registerForm').serialize();
+      $.ajax({
+        type: "post",
+        url: "/api/register",
+        data: data,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function success(data) {
+          console.log(data);
+          $('#registerModal').each(function () {
+            $(this).modal('hide');
+          });
+        },
+        error: function error(_error2) {
+          console.log('error');
+        }
+      });
+    }
+  }); //LOGIN
+
+  $('#loginForm').validate({
+    rules: {
+      lemail: {
+        required: true,
+        email: true
+      },
+      lpassword: {
+        required: true
+      }
+    },
+    messages: {
+      lemail: {
+        required: 'required',
+        email: 'Enter Valid Email'
+      },
+      lpassword: {
+        required: 'required'
+      }
+    },
+    errorPlacement: function errorPlacement(error, element) {
+      error.insertAfter(element);
+    },
+    submitHandler: function submitHandler(form, e) {
+      var data = $('#loginForm').serialize();
+      $.ajax({
+        type: "post",
+        url: "/api/login",
+        data: data,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function success(data) {
+          console.log(data);
+          window.localStorage.setItem('access_token', data.access_token);
+        },
+        error: function error(_error3) {
+          console.log(_error3);
+          alert('Failed to login. Please Try again');
+        }
+      });
+    }
   });
 });
 
@@ -469,22 +602,29 @@ __webpack_require__.r(__webpack_exports__);
 var movie = {
   //SHOW-MOVIE-TABLE
   show: function show(response) {
+    //INITIATE DATA TO APPEND TO INDEX BLADE
     var title = "Movies";
     var tableContent = "<thead>\n                <tr>\n                <th>ID</th>\n                <th>title</th>\n                <th>description</th>\n                <th>release</th>\n                <th>genre_id</th>\n                <th>producer_id</th>\n                <th>Edit</th>\n                <th>Delete</th>\n                </tr>\n                </thead>\n                <tbody id=\"movieBody\">\n                        \n                </tbody>\n        ";
-    var addButton = "<button type=\"button\" class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#addMovie\"><i class=\"fas fa-plus\"></i></button>";
+    var addButton = "<button type=\"button\" class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#addMovie\"><i class=\"fas fa-plus\"></i></button>"; //APPEND TABLE FORMAT TO INDEX
+
     $('#tableContent').html(tableContent);
     $('#addButton').html(addButton);
-    $('#title').html(title);
+    $('#title').html(title); //APPEND TABLE DATA TO INDEX
+
     response.forEach(function (element) {
       $('#movieBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.title, "</td>\n            <td>").concat(element.description, "</td>\n            <td>").concat(element.release, "</td>\n            <td>").concat(element.genre_id, "</td>\n            <td>").concat(element.producer_id, "</td>\n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editMovie\" data-id=\"").concat(element.id, "\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt movieDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
-    });
-    $("table tbody").sortable();
-    $('#content').append(_movieModals__WEBPACK_IMPORTED_MODULE_0__.default);
+    }); //APPEND MODAL FORM
+
+    $('#content').append(_movieModals__WEBPACK_IMPORTED_MODULE_0__.default); // GET GENRE AND PRODUCER ON SHOW OF MOVIE FORM MODAL
+
     $('#addMovie').on('shown.bs.modal', function (e) {
-      // ITERATE-GENRE-MODAL
+      // ITERATE-GENRE-MODAL ON DROPDOWN
       $.ajax({
         type: "GET",
         url: "/api/Genre",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         dataType: "json",
         success: function success(data) {
           console.log(data); //clear input
@@ -501,11 +641,14 @@ var movie = {
         error: function error(_error) {
           console.log('error');
         }
-      }); //ITERATE-PRODUCER-MODAL
+      }); //ITERATE-PRODUCER-MODAL ON DROPDOWN
 
       $.ajax({
         type: "GET",
         url: "/api/Producer",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         dataType: "json",
         success: function success(data) {
           console.log(data);
@@ -518,9 +661,9 @@ var movie = {
           console.log('error');
         }
       });
-    }); //CREATE-MOVIE
+    }); //CREATE-MOVIE WITH JQUERY VALIDATION
 
-    $('#movieCreateForm').validate({
+    var validObj = $('#movieCreateForm').validate({
       rules: {
         title: {
           required: true,
@@ -562,28 +705,36 @@ var movie = {
         error.insertAfter(element);
       },
       submitHandler: function submitHandler(form, e) {
-        e.preventDefault();
         var data = $("#movieCreate").serialize();
         console.log(data);
-        $.ajax({
-          type: "post",
-          url: "/api/Movie",
-          data: data,
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          dataType: "json",
-          success: function success(data) {
-            console.log(data);
-            $("#addMovie").modal("hide");
-            $('#movieBody').append("\n    \n                <tr>\n                <td>".concat(data.id, "</td>\n                <td>").concat(data.title, "</td>\n                <td>").concat(data.description, "</td>\n                <td>").concat(data.release, "</td>\n                <td>").concat(data.genre_id, "</td>\n                <td>").concat(data.producer_id, "</td>\n                <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(data.id, "\" data-bs-target=\"#editMovie\"></i></td>\n                <td align='center'><i class=\"fas fa-trash-alt movieDelete\" data-id=\"").concat(data.id, "\"></i></td>\n        \n                </tr>\n                "));
-          },
-          error: function error(_error3) {
-            console.log('error');
-          }
-        });
       }
     });
+    validObj.form();
+    $('#saveMovie').on('click', function (e) {
+      if (!validObj.form()) {
+        e.preventDefault();
+      }
+
+      var data = $('#movieCreateForm').serialize();
+      $.ajax({
+        type: "post",
+        url: "/api/Movie",
+        data: data,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
+        dataType: "json",
+        success: function success(data) {
+          console.log(data);
+          $("#addMovie").modal("hide");
+          $('#movieBody').append("\n    \n                <tr>\n                <td>".concat(data.id, "</td>\n                <td>").concat(data.title, "</td>\n                <td>").concat(data.description, "</td>\n                <td>").concat(data.release, "</td>\n                <td>").concat(data.genre_id, "</td>\n                <td>").concat(data.producer_id, "</td>\n                <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(data.id, "\" data-bs-target=\"#editMovie\"></i></td>\n                <td align='center'><i class=\"fas fa-trash-alt movieDelete\" data-id=\"").concat(data.id, "\"></i></td>\n        \n                </tr>\n                "));
+        },
+        error: function error(_error3) {
+          console.log(_error3);
+        }
+      });
+    }); //APPEND ROW DATA ON MODAL FORM
+
     $('#editMovie').on('shown.bs.modal', function (e) {
       var id = $(e.relatedTarget).attr('data-id');
       console.log(id); // ITERATE-GENRE-MODAL
@@ -591,6 +742,9 @@ var movie = {
       $.ajax({
         type: "GET",
         url: "/api/Genre",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         dataType: "json",
         success: function success(data) {
           console.log(data);
@@ -607,6 +761,9 @@ var movie = {
       $.ajax({
         type: "GET",
         url: "/api/Producer",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         dataType: "json",
         success: function success(data) {
           console.log(data);
@@ -618,16 +775,21 @@ var movie = {
         error: function error(_error5) {
           console.log('error');
         }
-      });
+      }); //ADD ROW ID ON HIDDEN FORM
+
       $('<input>').attr({
         type: 'hidden',
         id: 'id',
         name: 'id',
         value: id
-      }).appendTo('#movieEdit');
+      }).appendTo('#movieEdit'); //GET DATA OF ROW FROM DATABASE
+
       $.ajax({
         type: "GET",
         url: "api/Movie/" + id + "/edit",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           $(".movieTitle").val(data.title);
@@ -641,7 +803,8 @@ var movie = {
           alert("error");
         }
       });
-    });
+    }); //UPDATE ROW DATA ON DATABASE WITH JQUERY VALIDATION
+
     $('#movieEdit').validate({
       rules: {
         title: {
@@ -692,7 +855,7 @@ var movie = {
           url: "/api/Movie/" + id,
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -704,17 +867,7 @@ var movie = {
           }
         });
       }
-    });
-    $('#addMovie').on('hidden.bs.modal', function (e) {
-      // $(".modal-body").html("");
-      $('#genre_id').empty();
-      $('#producer_id').empty();
-    });
-    $('#editMovie').on('hidden.bs.modal', function (e) {
-      // $(".modal-body").html("");
-      $('.movieGenre_id').empty();
-      $('.movieProducer_id').empty();
-    }); //Delete
+    }); //DELETE ROW FROM DATABASE
 
     $(".movieDelete").on("click", function (e) {
       var id = $(e.currentTarget).attr('data-id');
@@ -726,7 +879,7 @@ var movie = {
           type: "DELETE",
           url: "/api/Movie/" + id,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -738,6 +891,15 @@ var movie = {
           }
         });
       }
+    }); //EMPTY DROPDOWN DATA WHEN MODAL FORM IS CLOSED
+
+    $('#addMovie').on('hidden.bs.modal', function (e) {
+      $('#genre_id').empty();
+      $('#producer_id').empty();
+    });
+    $('#editMovie').on('hidden.bs.modal', function (e) {
+      $('.movieGenre_id').empty();
+      $('.movieProducer_id').empty();
     });
   }
 };
@@ -756,7 +918,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ movieModal
 /* harmony export */ });
 function movieModal() {
-  return "<!-- ---------------------------------------MOVIECREATE-------------------------------------- -->\n    <div class=\"modal fade\" id=\"addMovie\" tabindex=\"-1\" aria-labelledby=\"addMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Create Movie</h2>\n            </div>\n\n            <div class=\"modal-body\">\n            <form id = \"movieCreateForm\">\n                <div class=\"form-group\">\n                    <label for=\"title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\" value=\"\">\n                    \n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input type=\"date\" id=\"release\" class=\"form-control\" name=\"release\" value=\"\" >\n                    </div>\n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control\" id=\"genre_id\" name=\"genre_id\"> \n                    \n                    </select>\n                    \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control\" id=\"producer_id\" name=\"producer_id\"> \n                    \n                    </select>\n                    \n                </div>\n                \n\n                \n            </div>\n\n            <div class=\"modal-footer\">\n            <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveMovie\" >Save</button>\n            <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n        </div>\n</form>\n        </div>\n    </div>\n</div>\n\n\n<!-- ---------------------------------------------------MOVIEEDIT------------------------------------------------- -->\n\n<div class=\"modal fade\" id=\"editMovie\" tabindex=\"-1\" aria-labelledby=\"editMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n        <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Edit Movie</h2>\n            </div>\n\n            <div class=\"modal-body\">\n            <form id = \"movieEdit\">\n                <div class=\"form-group\">\n                    <label for=\"Title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control movieTitle\" id=\"title\" name=\"title\" value=\"\">\n                    \n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control movieDescription\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input placeholder=\"Select date\" type=\"date\" id=\"release\" class=\"form-control movieRelease\" name=\"release\" value=\"\" data-date-format=\"yyyy-mm-dd\">\n                    \n                    </div>\n                </div>\n\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control movieGenre_id\" id=\"genre_id\" name=\"genre_id\"> \n                    \n                    </select>\n                    \n                </div>\n\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control movieProducer_id\" id=\"producer_id\" name=\"producer_id\"> \n                    \n                    </select>\n                    \n                </div>\n                \n\n            <div class=\"modal-footer\">\n                <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateMovie\" >Save</button>\n                <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n            </form>\n            </div>\n        </div>\n    </div>\n</div>";
+  return "<!-- ---------------------------------------MOVIECREATE-------------------------------------- -->\n    <div class=\"modal fade\" id=\"addMovie\" tabindex=\"-1\" aria-labelledby=\"addMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Create Movie</h2>\n            </div>\n            <div class=\"modal-body\">\n            <form id=\"movieCreateForm\">\n                <div class=\"form-group\">\n                    <label for=\"title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\" value=\"\">\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                </div>\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input type=\"date\" id=\"release\" class=\"form-control\" name=\"release\" value=\"\" >\n                    </div>\n                </div>\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control\" id=\"genre_id\" name=\"genre_id\">\n                    </select>\n                </div>\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control\" id=\"producer_id\" name=\"producer_id\"> \n                    </select>\n                </div>\n            </div>\n\n            <div class=\"modal-footer\">\n            <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveMovie\" >Save</button>\n            <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n        </div>\n</form>\n        </div>\n    </div>\n</div>\n\n\n<!-- ---------------------------------------------------MOVIEEDIT------------------------------------------------- -->\n\n<div class=\"modal fade\" id=\"editMovie\" tabindex=\"-1\" aria-labelledby=\"editMovie\" aria-hidden=\"true\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        <div class=\"modal-header d-flex justify-content-center\">\n            <h2>Edit Movie</h2>\n            </div>\n            <div class=\"modal-body\">\n            <form id = \"movieEdit\">\n                <div class=\"form-group\">\n                    <label for=\"Title\" class=\"control-label\">Title</label>\n                    <input type=\"text\" class=\"form-control movieTitle\" id=\"title\" name=\"title\" value=\"\">\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"description\">Description</label>\n                    <textarea class=\"form-control movieDescription\" id=\"description\" name=\"description\" rows=\"3\" value=\"\"></textarea>\n                </div>\n                <div class=\"form-group col-md-6\">\n                    <div class=\"md-form  md-outline input-with-post-icon datepicker\">\n                        <label for=\"Release\">Release</label>\n                        <input placeholder=\"Select date\" type=\"date\" id=\"release\" class=\"form-control movieRelease\" name=\"release\" value=\"\" data-date-format=\"yyyy-mm-dd\">\n                    </div>\n                </div>\n                <div class=\"form-group col-md-6\">\n                    <label for=\"genre\">Genre</label>\n                    <select class=\"form-control movieGenre_id\" id=\"genre_id\" name=\"genre_id\"> \n                    </select>\n                </div>\n                <div class=\"form-group col-md-6\">\n                <label for=\"producer\">Producer</label>\n                    <select class=\"form-control movieProducer_id\" id=\"producer_id\" name=\"producer_id\"> \n                    </select>\n                </div>\n            <div class=\"modal-footer\">\n                <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateMovie\" >Save</button>\n                <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n            </div>\n            </form>\n            </div>\n        </div>\n    </div>\n</div>";
 }
 
 /***/ }),
@@ -777,16 +939,18 @@ var producer = {
   show: function show(response) {
     //SHOW-PRODUCER-TABLE
     var title = "Producers";
-    var tableContent = "<thead class=\"table-dark\">\n        <tr>\n            <th>ID</th>\n            <th>name</th>\n            <th>email</th>\n            <th>Edit</th>\n            <th>Delete</th>\n        </tr>\n        </thead>\n        <tbody id=\"producerBody\">\n            </tbody>\n        ";
-    var addButton = "<button type=\"button\" class=\"btn \" data-bs-toggle=\"modal\" data-bs-target=\"#addProducer\"><i class=\"fas fa-plus\"></i></button>";
+    var tableContent = "<thead>\n        <tr>\n            <th>ID</th>\n            <th>name</th>\n            <th>email</th>\n            <th>Edit</th>\n            <th>Delete</th>\n        </tr>\n        </thead>\n        <tbody id=\"producerBody\">\n            </tbody>\n        ";
+    var addButton = "<button type=\"button\" class=\"btn \" data-bs-toggle=\"modal\" data-bs-target=\"#addProducer\"><i class=\"fas fa-plus\"></i></button>"; //APPEND TABLE FORMAT TO INDEX
+
     $('#tableContent').html(tableContent);
     $('#addButton').html(addButton);
-    $('#title').html(title);
+    $('#title').html(title); //APPEND TABLE DATA TO INDEX
+
     response.forEach(function (element) {
       $('#producerBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.name, "</td>\n            <td>").concat(element.email, "</td>\n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editProducer\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt producerDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
-    });
-    $("table tbody").sortable();
-    $('#content').append(_producerModals__WEBPACK_IMPORTED_MODULE_0__.default); //  CREATE-PRODUCER
+    }); //APPEND MODAL FORM
+
+    $('#content').append(_producerModals__WEBPACK_IMPORTED_MODULE_0__.default); // CREATE-PRODUCER WITH JQUERY VALIDATION
 
     $('#producerCreate').validate({
       rules: {
@@ -820,11 +984,11 @@ var producer = {
           url: "/api/Producer",
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
-            console.log(data); //clear input
+            console.log(data); //CLEAR INPUT FORM
 
             $('#producerCreate :input').each(function () {
               var input = $(this);
@@ -838,7 +1002,7 @@ var producer = {
           }
         });
       }
-    }); // EDIT PRODUCER
+    }); //APPEND ROW DATA ON MODAL FORM
 
     $('#editProducer').on('show.bs.modal', function (e) {
       var id = $(e.relatedTarget).attr('data-id');
@@ -852,6 +1016,9 @@ var producer = {
       $.ajax({
         type: "GET",
         url: "api/Producer/" + id + "/edit",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           $(".producerName").val(data.name);
@@ -862,7 +1029,7 @@ var producer = {
           alert("error");
         }
       });
-    }); //UPDATE PRODUCER
+    }); //UPDATE PRODUCER ON DATABASE WITH JQUERY VALIDATION
 
     $('#producerEdit').validate({
       rules: {
@@ -897,7 +1064,7 @@ var producer = {
           url: "/api/Producer/" + id,
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -911,7 +1078,7 @@ var producer = {
           }
         });
       }
-    }); //Delete
+    }); //DELETE ROW FROM DATABASE
 
     $(".producerDelete").on("click", function (e) {
       var id = $(e.currentTarget).attr('data-id');
@@ -923,11 +1090,10 @@ var producer = {
           type: "DELETE",
           url: "/api/Producer/" + id,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
-            // console.log(data);
             $tr.remove();
           },
           error: function error(data) {
@@ -971,24 +1137,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _roleModals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./roleModals */ "./resources/js/roleModals.js");
 
 var role = {
+  //SHOW-ROLE-TABLE
   show: function show(response) {
+    //INITIATE DATA TO APPEND TO INDEX BLADE
     var title = "Roles";
-    var tableContent = "\n                        <thead class=\"\">\n                            <tr>\n                            <th>ID</th>\n                            <th>name</th>\n                            <th>actor</th>\n                            <th>movie</th>\n                            <th>Edit</th>\n                            <th>Delete</th>\n                            </tr>\n                        </thead>\n                        <tbody id=\"roleBody\">\n                        </tbody>\n                    ";
-    var addButton = "<button type=\"button\" class=\"btn \" data-bs-toggle=\"modal\" data-bs-target=\"#addRole\"><i class=\"fas fa-plus\"></i></button>";
+    var tableContent = "\n            <thead class=\"\">\n                <tr>\n                <th>ID</th>\n                <th>name</th>\n                <th>actor</th>\n                <th>movie</th>\n                <th>Edit</th>\n                <th>Delete</th>\n                </tr>\n            </thead>\n            <tbody id=\"roleBody\">\n            </tbody>\n        ";
+    var addButton = "<button type=\"button\" class=\"btn \" data-bs-toggle=\"modal\" data-bs-target=\"#addRole\"><i class=\"fas fa-plus\"></i></button>"; //APPEND TABLE FORMAT TO INDEX
+
     $('#tableContent').html(tableContent);
     $('#addButton').html(addButton);
     $('#title').html(title);
     response.forEach(function (element) {
-      $('#roleBody').append("\n                        <tr>\n                        <td>".concat(element.id, "</td>\n                        <td>").concat(element.name, "</td>\n                        <td>").concat(element.actor_id, "</td>\n                        <td>").concat(element.movie_id, "</td>\n                        <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editRole\"></i></td>\n                        <td align='center'><i class=\"fas fa-trash-alt roleDelete\" data-id=\"").concat(element.id, "\"></i></td>\n                \n                        </tr>\n                        "));
-    });
-    $("table tbody").sortable();
-    $("#content").append(_roleModals__WEBPACK_IMPORTED_MODULE_0__.default);
+      $('#roleBody').append("\n            <tr>\n            <td>".concat(element.id, "</td>\n            <td>").concat(element.name, "</td>\n            <td>").concat(element.actor_id, "</td>\n            <td>").concat(element.movie_id, "</td>\n            <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-id=\"").concat(element.id, "\" data-bs-target=\"#editRole\"></i></td>\n            <td align='center'><i class=\"fas fa-trash-alt roleDelete\" data-id=\"").concat(element.id, "\"></i></td>\n    \n            </tr>\n            "));
+    }); //APPEND MODAL FORM
+
+    $("#content").append(_roleModals__WEBPACK_IMPORTED_MODULE_0__.default); // GET MOVIE AND ACTOR TABLE ON SHOW OF ROLE FORM MODAL
+
     $('#addRole').on('shown.bs.modal', function (e) {
       //ITERATE-MOVIE-MODAL
       $.ajax({
         type: "GET",
         url: "/api/Movie",
         dataType: "json",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           var select = $('#movie_id');
@@ -1005,6 +1178,9 @@ var role = {
         type: "GET",
         url: "/api/Actor",
         dataType: "json",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           var select = $('#actor_id');
@@ -1016,7 +1192,7 @@ var role = {
           console.log('error');
         }
       });
-    }); //CREATE-ROLE
+    }); //CREATE-ROLE WITH JQUERY VALIDATION
 
     $('#roleCreate').validate({
       rules: {
@@ -1054,25 +1230,26 @@ var role = {
           url: "/api/Role",
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
-            console.log(data); //clear input
+            console.log(data); //CLEAR INPUT FORM
 
             $('#roleCreate :input').each(function () {
               var input = $(this);
               input.val('');
             });
             $('#addRole').modal('hide');
-            $('#roleBody').append("\n            \n                        <tr>\n                        <td>".concat(data.id, "</td>\n                        <td>").concat(data.name, "</td>\n                        <td>").concat(data.actor_id, "</td>\n                        <td>").concat(data.movie_id, "</td>\n                        <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editRole\"></i></td>\n                        <td align='center'><i class=\"fas fa-trash-alt actorDelete\" data-id=\"").concat(data.id, "\"></i></td>\n                \n                        </tr>\n                        "));
+            $('#roleBody').append("\n                        <tr>\n                        <td>".concat(data.id, "</td>\n                        <td>").concat(data.name, "</td>\n                        <td>").concat(data.actor_id, "</td>\n                        <td>").concat(data.movie_id, "</td>\n                        <td align='center'><i class=\"fas fa-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editRole\"></i></td>\n                        <td align='center'><i class=\"fas fa-trash-alt actorDelete\" data-id=\"").concat(data.id, "\"></i></td>\n                \n                        </tr>\n                        "));
           },
           error: function error(_error3) {
             console.log('error');
           }
         });
       }
-    });
+    }); //APPEND ROW DATA ON MODAL FORM
+
     $('#editRole').on('show.bs.modal', function (e) {
       var id = $(e.relatedTarget).attr('data-id');
       console.log(id); //ITERATE-MOVIE-MODAL
@@ -1081,6 +1258,9 @@ var role = {
         type: "GET",
         url: "/api/Movie",
         dataType: "json",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           var select = $('.producerMovie_id');
@@ -1097,6 +1277,9 @@ var role = {
         type: "GET",
         url: "/api/Actor",
         dataType: "json",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           var select = $('.producerActor_id');
@@ -1117,6 +1300,9 @@ var role = {
       $.ajax({
         type: "GET",
         url: "api/Role/" + id + "/edit",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
         success: function success(data) {
           console.log(data);
           $(".roleName").val(data.name);
@@ -1126,7 +1312,8 @@ var role = {
           alert("error");
         }
       });
-    });
+    }); //UPDATE ROW DATA ON DATABASE WITH JQUERY VALIDATION
+
     $('#roleEdit').validate({
       rules: {
         movie_id: {
@@ -1163,7 +1350,7 @@ var role = {
           url: "/api/Role/" + id,
           data: data,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -1177,17 +1364,7 @@ var role = {
           }
         });
       }
-    });
-    $('#addRole').on('hidden.bs.modal', function (e) {
-      $('#actor_id').empty();
-      $('#movie_id').empty();
-      $('#name').empty();
-    });
-    $('#editRole').on('hidden.bs.modal', function (e) {
-      $('.producerMovie_id').empty();
-      $('.producerActor_id').empty();
-      $('.roleName').empty();
-    }); //Delete
+    }); //DELETE ROW FROM DATABASE
 
     $(".roleDelete").on("click", function (e) {
       var id = $(e.currentTarget).attr('data-id');
@@ -1199,7 +1376,7 @@ var role = {
           type: "DELETE",
           url: "/api/Role/" + id,
           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           },
           dataType: "json",
           success: function success(data) {
@@ -1211,6 +1388,17 @@ var role = {
           }
         });
       }
+    }); //EMPTY DROPDOWN DATA WHEN MODAL FORM IS CLOSED
+
+    $('#addRole').on('hidden.bs.modal', function (e) {
+      $('#actor_id').empty();
+      $('#movie_id').empty();
+      $('#name').empty();
+    });
+    $('#editRole').on('hidden.bs.modal', function (e) {
+      $('.producerMovie_id').empty();
+      $('.producerActor_id').empty();
+      $('.roleName').empty();
     });
   }
 };
@@ -1229,7 +1417,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ roleModal
 /* harmony export */ });
 function roleModal() {
-  return "\n    <!-- ----------------------------------------------------------ROLECREATE--------------------------------------------------- -->\n    <div class=\"modal fade bd-example-modal-sm\" id=\"addRole\" tabindex=\"-1\" aria-labelledby=\"addRole\" aria-hidden=\"true\">\n        <div class=\"modal-dialog modal-sm\">\n            <div class=\"modal-content\">\n            \n                <div class=\"modal-header\">\n                    <h2>Create new Role</h2>\n                </div>\n    \n                <div class=\"modal-body\">\n    <form id=\"roleCreate\">\n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Movie</label>\n                        <select class=\"form-control\" id=\"movie_id\" name=\"movie_id\"> \n                        \n                        </select>\n                        \n                    </div>\n    \n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Actor</label>\n                        <select class=\"form-control\" id=\"actor_id\" name=\"actor_id\"> \n                        \n                        </select>\n                        \n                    </div>\n    \n                    <div class=\"form-group\">\n                    <label for=\"name\" class=\"control-label\">Name</label>\n                    <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\">\n                    </div>\n                <div class=\"modal-footer\">\n                    <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveRole\" >Save</button>\n                    <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n                </div>\n    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n    <!-- ----------------------------------------------------------ROLEEDIT--------------------------------------------------- -->\n    <div class=\"modal fade bd-example-modal-sm\" id=\"editRole\" tabindex=\"-1\" aria-labelledby=\"editRole\" aria-hidden=\"true\">\n        <div class=\"modal-dialog modal-sm\">\n            <div class=\"modal-content\">\n            \n                <div class=\"modal-header\">\n                    <h2>Edit Role</h2>\n                </div>\n    \n                <div class=\"modal-body\">\n            <form id=\"roleEdit\">\n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Movie</label>\n                        <select class=\"form-control producerMovie_id\" id=\"movie_id\" name=\"movie_id\"> \n                        \n                        </select>\n                        \n                    </div>\n\n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Actor</label>\n                        <select class=\"form-control producerActor_id\" id=\"actor_id\" name=\"actor_id\"> \n                        \n                        </select>\n                    </div>\n    \n                    <div class=\"form-group\">\n                    <label for=\"name\" class=\"control-label\">Name</label>\n                    <input type=\"text\" class=\"form-control roleName\" id=\"name\" name=\"name\">\n                    </div>\n            \n                <div class=\"modal-footer\">\n                    <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateRole\" >Save</button>\n                    <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n                </div>\n            </form>   \n                </div>\n            </div>\n        </div>\n    </div>";
+  return "\n    <!-- ----------------------------------------------------------ROLECREATE--------------------------------------------------- -->\n    <div class=\"modal fade bd-example-modal-sm\" id=\"addRole\" tabindex=\"-1\" aria-labelledby=\"addRole\" aria-hidden=\"true\">\n        <div class=\"modal-dialog modal-sm\">\n            <div class=\"modal-content\">\n            \n                <div class=\"modal-header\">\n                    <h2>Create new Role</h2>\n                </div>\n    \n                <div class=\"modal-body\">\n    <form id=\"roleCreate\">\n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Movie</label>\n                        <select class=\"form-control\" id=\"movie_id\" name=\"movie_id\"> \n                        </select>\n                    </div>\n    \n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Actor</label>\n                        <select class=\"form-control\" id=\"actor_id\" name=\"actor_id\"> \n                        </select>\n                    </div>\n    \n                    <div class=\"form-group\">\n                    <label for=\"name\" class=\"control-label\">Name</label>\n                    <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\">\n                    </div>\n                <div class=\"modal-footer\">\n                    <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"saveRole\" >Save</button>\n                    <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n                </div>\n    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n    <!-- ----------------------------------------------------------ROLEEDIT--------------------------------------------------- -->\n    <div class=\"modal fade bd-example-modal-sm\" id=\"editRole\" tabindex=\"-1\" aria-labelledby=\"editRole\" aria-hidden=\"true\">\n        <div class=\"modal-dialog modal-sm\">\n            <div class=\"modal-content\">\n            \n                <div class=\"modal-header\">\n                    <h2>Edit Role</h2>\n                </div>\n    \n                <div class=\"modal-body\">\n    <form id=\"roleEdit\">\n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Movie</label>\n                        <select class=\"form-control producerMovie_id\" id=\"movie_id\" name=\"movie_id\"> \n                        \n                        </select>\n                        \n                    </div>\n\n                    <div class=\"form-group col-md-6\">\n                        <label for=\"genre\">Actor</label>\n                        <select class=\"form-control producerActor_id\" id=\"actor_id\" name=\"actor_id\"> \n                        \n                        </select>\n                    </div>\n    \n                    <div class=\"form-group\">\n                    <label for=\"name\" class=\"control-label\">Name</label>\n                    <input type=\"text\" class=\"form-control roleName\" id=\"name\" name=\"name\">\n                    </div>\n            \n                <div class=\"modal-footer\">\n                    <button type=\"submit\" class=\"btn\" style=\"background-color:#9dfdc7; color:#367591;\" id=\"updateRole\" >Save</button>\n                    <button type=\"submit\" class=\"btn\" data-bs-dismiss=\"modal\">Cancel</button>\n                </div>\n    </form>   \n                </div>\n            </div>\n        </div>\n    </div>";
 }
 
 /***/ })

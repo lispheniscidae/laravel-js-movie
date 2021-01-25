@@ -17,16 +17,15 @@
       #resizable{ 
         margin-top: 10px;
         width: 100%; 
-        height: 500px; 
+        height: 600px; 
         padding: 0.5em; 
         border: 10px solid #152744;
-    }
+      }
 
     .error {
         color: #c05f5f;
         font-style: italic;
     }
-   
     </style>
 
 </head> 
@@ -53,6 +52,14 @@
         <a href="#" class="nav-link link" style="color: #9dfdc7;"data-id="Role">Role</a>
         </li>
       </ul>
+
+      <ul class="form-inline my-2 my-lg-0">
+        <button type="submit" class="btn  mr-sm-2" data-bs-toggle="modal" data-bs-target="#loginModal">LOGIN</button>
+        <button type="submit" class="btn  mr-sm-2" data-bs-toggle="modal" data-bs-target="#registerModal">REGISTER</button>
+      </ul>
+        
+
+      
     </div>
   </div>
 </nav>

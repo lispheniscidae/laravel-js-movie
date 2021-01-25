@@ -14,21 +14,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        // $genres = Role::orderBy('id', 'DESC')->paginate(5);
-        // return View::make('index', compact('roles'));
 
         $role = Role::orderBy('id')->get();
             return response()->json($role);
     }
 
-    public function getRoleAll(Request $request){
-        if ($request->ajax()){
-            $roles = Role::orderBy('id')->get();
-            return response()->json($roles);
-         }
-
-         return view('index');
-    }
 
     /**
      * Show the form for creating a new resource.

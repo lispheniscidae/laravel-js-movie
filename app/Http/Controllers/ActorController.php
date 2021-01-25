@@ -19,15 +19,6 @@ class ActorController extends Controller
         return response()->json($actors);
     }
 
-    public function getActorAll(Request $request){
-        if ($request->ajax()){
-            $actors = Actor::orderBy('id')->get();
-            return response()->json($actors);
-        }
-
-        return view('index');
-    }
-
     /**
      * Show the form for creating a new resource.
      *

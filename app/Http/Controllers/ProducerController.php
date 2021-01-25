@@ -19,15 +19,6 @@ class ProducerController extends Controller
             return response()->json($producer);
     }
 
-    public function getProducerAll(Request $request){
-        if ($request->ajax()){
-            $producers = Producer::orderBy('id')->get();
-            return response()->json($producers);
-         }
-
-         return view('index');
-    }
-
     /**
      * Show the form for creating a new resource.
      *
